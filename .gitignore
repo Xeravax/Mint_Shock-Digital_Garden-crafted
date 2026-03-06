@@ -20,9 +20,11 @@ Thumbs.db
 
 # License files directory
 licenses/
+Dumps/
 
 # Generated files
 *.log
+_site/
 
 # Environment files
 .env

@@ -1,0 +1,23 @@
+---
+title: Mint Shock
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{{ title }}</title>
+		<link rel="stylesheet" href="css/main.css" />
+	</head>
+	<body>
+		<div id="mainWrap"></div>
+		<canvas id="canvas"></canvas>
+		<script src="scripts/background-animation.js"></script>
+		<script src="scripts/copy-code.js"></script>
+		<script>
+			new NoiseAnimation('canvas');
+		</script>
+		<script src="scripts/prism.js"></script>
+	</body>
+</html>
