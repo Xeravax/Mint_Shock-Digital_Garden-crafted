@@ -1,0 +1,106 @@
+// Import Bulma's variables
+
+@use 'sass:string' as string;
+@use '../node_modules/bulma/sass/utilities/initial-variables' as *;
+@use '../node_modules/bulma/sass/utilities/derived-variables' as *;
+@use '../node_modules/bulma/sass/utilities/mixins' as *;
+
+// Define your custom variables
+$custom-gray: #333;
+$custom-blue: #007bff;
+
+canvas {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	z-index: -1;
+}
+
+#mainArea {
+	height: 300vh;
+	border-radius: var(--bulma-radius-large);
+}
+
+nav.navbar {
+	border-radius: var(--bulma-radius);
+}
+
+pre {
+	border-radius: var(--bulma-radius);
+}
+
+.code-toolbar {
+	@include block;
+	position: relative;
+
+	& > .toolbar {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 5px;
+
+		& > .toolbar-item {
+			& > * {
+				padding: 8px 15px;
+				font-size: $size-small;
+				background: $grey;
+				display: inline-block;
+				height: 100%;
+				font-family: string.unquote($family-secondary);
+				--toolbar-item-radius: calc(var(--bulma-radius) - 5px);
+			}
+
+			&:first-of-type > * {
+				border-radius: 0 0 0
+					var(--toolbar-item-radius);
+			}
+			&:last-of-type > * {
+				border-radius: 0 var(--toolbar-item-radius)
+					0 0;
+			}
+		}
+	}
+}
+
+pre > code {
+	tab-size: 3;
+
+	& .token {
+		&.selector {
+			color: $yellow;
+
+			& > .class {
+				color: $orange;
+			}
+
+			& > .id {
+				color: $red;
+			}
+		}
+		&.punctuation {
+			color: $white;
+		}
+		&:is(.property) {
+			color: $cyan;
+
+			& > .class {
+				color: $orange;
+			}
+
+			& > .id {
+				color: $red;
+			}
+		}
+
+		&.function {
+			color: $green;
+		}
+		&.variable {
+			color: $green;
+		}
+	}
+}

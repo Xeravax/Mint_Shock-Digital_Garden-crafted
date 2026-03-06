@@ -1,0 +1,178 @@
+// Set your brand colors
+$brand-gray: #191919;
+$brand-cyan: #7aecfd;
+$brand-yellow: #dafc7c;
+
+// Override global Sass variables from the /utilities folder
+@use '../node_modules/bulma/sass/utilities' with (
+	$family-primary: '"Red Hat Text", sans-serif',
+	$family-monospace: '"Red Hat Mono", monospace',
+	$family-secondary: '"Silkscreen", sans-serif',
+
+	$orange: #fcb57d,
+	$yellow: $brand-yellow,
+	$green: #7afc94,
+	$turquoise: #7aedfc,
+	$cyan: $brand-cyan,
+	$blue: #7a82fc,
+	$purple: #e07afc,
+	$red: #fc7dad,
+
+	$black: $brand-gray,
+	$grey: #131313,
+	$white: red,
+
+	$link: $brand-yellow,
+	$primary: $brand-cyan,
+	$radius-large: 3rem,
+	$radius: 0.7rem,
+	$scheme-h: 0,
+	$scheme-s: 0%,
+	$dark-l: 10%,
+
+);
+
+// Override Sass variables from the /form folder
+@use '../node_modules/bulma/sass/form' with (
+	$input-shadow: none
+);
+
+@use '../node_modules/bulma/sass/elements/title' with (
+	$title-family: '"Odibee Sans", sans-serif'
+);
+
+@use '../node_modules/bulma/sass/base' with (
+	$body-size: clamp(1rem, 1.5vw, 1.25rem)
+);
+
+@use '../node_modules/bulma/sass/components/navbar' with (
+	$navbar-item-img-max-height: 2.5rem,
+	$navbar-height: 4.5rem,
+	$navbar-dropdown-radius: 0.7rem,
+);
+// Import the components you need
+@forward '../node_modules/bulma/sass/elements/button';
+@forward '../node_modules/bulma/sass/elements/icon';
+@forward '../node_modules/bulma/sass/elements/block';
+@forward '../node_modules/bulma/sass/elements/box';
+@forward '../node_modules/bulma/sass/elements/image';
+@forward '../node_modules/bulma/sass/elements/title';
+
+@forward '../node_modules/bulma/sass/layout/container';
+@forward '../node_modules/bulma/sass/layout/section';
+@forward '../node_modules/bulma/sass/layout/section';
+
+@forward '../node_modules/bulma/sass/helpers/color';
+@forward '../node_modules/bulma/sass/helpers/other';
+@forward '../node_modules/bulma/sass/helpers/gap';
+
+@forward '../node_modules/bulma/sass/components/card';
+
+@forward '../node_modules/bulma/sass/grid';
+
+// Import the themes so that all CSS variables have a value
+@forward '../node_modules/bulma/sass/themes';
+
+// Import custom styles last
+@use 'styles';
+
+/* All for Debug  */
+
+/*  @forward '../node_modules/bulma/sass';  */
+
+/* Fonts */
+
+/* odibee-sans-regular - latin */
+@font-face {
+	font-display: swap; 
+	font-family: 'Odibee Sans';
+	font-style: normal;
+	font-weight: 400;
+	src: url('../assets/fonts/odibee-sans-v20-latin-regular.woff2')
+		format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* red-hat-text-regular - latin */
+@font-face {
+	font-display: swap; 
+	font-family: 'Red Hat Text';
+	font-style: normal;
+	font-weight: 400;
+	src: url('../assets/fonts/red-hat-text-v19-latin-regular.woff2')
+		format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* red-hat-text-italic - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Red Hat Text';
+	font-style: italic;
+	font-weight: 400;
+	src: url('../assets/fonts/red-hat-text-v19-latin-italic.woff2')
+		format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* red-hat-text-700 - latin */
+@font-face {
+	font-display: swap; 
+	font-family: 'Red Hat Text';
+	font-style: normal;
+	font-weight: 700;
+	src: url('../assets/fonts/red-hat-text-v19-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* red-hat-text-700italic - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Red Hat Text';
+	font-style: italic;
+	font-weight: 700;
+	src: url('../assets/fonts/red-hat-text-v19-latin-700italic.woff2')
+		format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* red-hat-mono-regular - latin */
+@font-face {
+	font-display: swap; 
+	font-family: 'Red Hat Mono';
+	font-style: normal;
+	font-weight: 400;
+	src: url('../assets/fonts/red-hat-mono-v16-latin-regular.woff2')
+		format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* red-hat-mono-italic - latin */
+@font-face {
+	font-display: swap; 
+	font-family: 'Red Hat Mono';
+	font-style: italic;
+	font-weight: 400;
+	src: url('../assets/fonts/red-hat-mono-v16-latin-italic.woff2')
+		format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* red-hat-mono-700 - latin */
+@font-face {
+	font-display: swap; 
+	font-family: 'Red Hat Mono';
+	font-style: normal;
+	font-weight: 700;
+	src: url('../assets/fonts/red-hat-mono-v16-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* red-hat-mono-700italic - latin */
+@font-face {
+	font-display: swap;
+	font-family: 'Red Hat Mono';
+	font-style: italic;
+	font-weight: 700;
+	src: url('../assets/fonts/red-hat-mono-v16-latin-700italic.woff2')
+		format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+
+
+/* npm run sass */
+/* npx sass --load-path=node_modules --watch scss/main.scss:css/main.css */
+
+/* Monospace font missing */

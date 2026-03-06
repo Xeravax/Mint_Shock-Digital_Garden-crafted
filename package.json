@@ -1,0 +1,16 @@
+{
+	"name": "resavi",
+	"version": "1.0.0",
+	"description": "Resonite Avatar Library",
+	"main": "index.html",
+	"scripts": {
+		"sass": "sass --watch scss:css"
+	},
+	"keywords": [],
+	"author": "Mint_Shock",
+	"license": "MIT",
+	"type": "commonjs",
+	"dependencies": {
+		"@11ty/eleventy": "^3.1.2"
+	}
+}

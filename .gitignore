@@ -1,0 +1,32 @@
+# Node modules
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.vscode/
+*.code-workspace
+
+# License files directory
+licenses/
+
+# Generated files
+*.log
+
+# Environment files
+.env
+
+# Temporary files
+*.tmp
+*.temp
