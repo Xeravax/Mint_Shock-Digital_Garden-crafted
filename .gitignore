@@ -19,8 +19,7 @@ Thumbs.db
 *.code-workspace
 
 # License files directory
-licenses/
-Dumps/
+ignore/
 
 # Generated files
 *.log

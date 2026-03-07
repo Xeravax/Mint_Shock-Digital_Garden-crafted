@@ -4,7 +4,9 @@
 	"description": "Resonite Avatar Library",
 	"main": "index.html",
 	"scripts": {
-		"sass": "sass --watch scss:css"
+		"dev": "eleventy --serve",
+		"build": "eleventy",
+		"clean": "rm -rf _site"
 	},
 	"keywords": [],
 	"author": "Mint_Shock",
