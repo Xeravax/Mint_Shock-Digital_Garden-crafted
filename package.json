@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "eleventy --serve",
 		"build": "eleventy",
-		"clean": "rm -rf _site"
+		"clean": "rmdir /s /q _site",
 	},
 	"keywords": [],
 	"author": "Mint_Shock",
