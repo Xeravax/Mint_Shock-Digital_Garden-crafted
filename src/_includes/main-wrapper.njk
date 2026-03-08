@@ -1,0 +1,32 @@
+---
+title: Mint Shock
+---
+
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <title>{{ title }}</title>
+      <link rel="stylesheet" href="/assets/css/reset.css"/>
+      <link rel="stylesheet" href="/assets/css/main.css"/>
+   </head>
+   <body>
+      <div id="mainWrap">
+         <nav>
+				
+            {{ collections.all | eleventyNavigation | eleventyNavigationToHtml | safe }}
+         </nav>
+         <main>
+            <section>
+               {{ content | safe }}
+            </section>
+         </main>
+      </div>
+      <canvas id="canvas"></canvas>
+      <script src="/assets/js/background-animation.js"></script>
+      <script>
+         new NoiseAnimation('canvas');
+      </script>
+   </body>
+</html>
