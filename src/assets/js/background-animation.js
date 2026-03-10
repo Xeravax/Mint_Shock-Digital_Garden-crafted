@@ -30,7 +30,7 @@ class NoiseAnimation {
             uniform float u_scrollScale;  // scale factor for parallax
 
             #define SCALE 2.0
-            #define SPEED 0.02
+            #define SPEED 0.01
             #define LEVELS 100.0
             #define COLOR1 vec3(0.01, 0.01, 0.01)
             #define COLOR2 vec3(0.194616, 0.8388, 0.982251)

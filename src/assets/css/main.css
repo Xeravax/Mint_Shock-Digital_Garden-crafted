@@ -17,13 +17,16 @@
 	--purple: #e07afc;
 	--red: #fc7dad;
 
-	--gray: var(--mint-gray);
+	--background: var(--mint-gray);
+	--background-transparent: #191919fa;
+	--bg-backdrop: blur(10px);
 	--black: #131313;
 	--white: #fff;
 
 	--link: var(--mint-yellow);
 	--primary: var(--mint-cyan);
 	--radius-large: 3rem;
+	--radius-medium: 1.5rem;
 	--radius: 0.7rem;
 
 	--mainWidth: 1200px;
@@ -120,10 +123,15 @@ body {
 	margin: 0 auto;
 	max-width: var(--mainWidth);
 	isolation: isolate;
+	display: flex;
+	flex-direction: column;
+	gap: 3rem;
+	padding-block: 3rem;
 }
 
 #mainWrap > main > section {
-	background: var(--gray);
+	background: var(--background-transparent);
+	backdrop-filter: var(--bg-backdrop);
 	border-radius: var(--radius-large);
 	box-shadow: var(--shadow-main);
 	position: relative;
@@ -131,6 +139,49 @@ body {
 }
 
 /* #endregion ------------------------------ Main ------------------------------ */
+
+/* #region ------------------------------ Nav ------------------------------ */
+
+#mainNav {
+	box-shadow: var(--shadow-main);
+	border-radius: var(--radius-large);
+}
+
+#mainNav ul{
+	border-radius: var(--radius-large);
+	padding:3rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	z-index: 100;
+	top: 0;
+	left: 0;
+	position: sticky;
+	background: var(--background-transparent);
+	backdrop-filter: var(--bg-backdrop);
+	justify-content: center;
+
+}
+
+#mainNav ul>li {
+	display: inline-block;
+}
+
+#mainNav ul>li ul {
+	display: none;
+	position: absolute;
+	background: var(--background-transparent);
+	backdrop-filter: blur(10px);
+	border-radius: var(--radius);
+	padding: 0.5rem;
+	margin-top: 0.5rem;
+}
+
+#mainNav ul>li:is(:hover, :focus) ul {
+	display: block;
+}
+
+/* #endregion ------------------------------ Nav ------------------------------ */
 
 canvas {
 	position: fixed;
