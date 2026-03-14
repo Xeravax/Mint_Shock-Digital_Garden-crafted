@@ -3,10 +3,10 @@
 	--mint-cyan: #7aecfd;
 	--mint-yellow: #dafc7c;
 
-	--family-primary: "Red Hat Text", sans-serif;
-	--family-secondary: "Silkscreen", sans-serif;
-	--family-tertiary: "Odibee Sans", sans-serif;
-	--family-monospace: "Fira Code", monospace;
+	--family-primary: 'Red Hat Text', sans-serif;
+	--family-secondary: 'Silkscreen', sans-serif;
+	--family-tertiary: 'Odibee Sans', sans-serif;
+	--family-monospace: 'Fira Code', monospace;
 
 	--orange: #fcb57d;
 	--yellow: var(--mint-yellow);
@@ -18,8 +18,8 @@
 	--red: #fc7dad;
 
 	--background: var(--mint-gray);
-	--background-transparent: #191919fa;
-	--bg-backdrop: blur(10px);
+	--background-transparent: #191919e0;
+	--bg-backdrop: blur(20px);
 	--black: #131313;
 	--white: #fff;
 
@@ -32,7 +32,11 @@
 	--mainWidth: 1200px;
 	--padding-Main: 5rem;
 
-	--shadow-main: 0 0 1000px 500px #00000071;
+	--bg-blur: 300px;
+
+	--transition-fast: 200ms;
+	--transition-medium: 350ms;
+	--transition-slow: 500ms;
 
 	/* #region ------------------------------ FontFaces ------------------------------ */
 
@@ -114,26 +118,43 @@
 body {
 	background: var(--black);
 	font-family: var(--family-primary);
+	min-height: 100vh;
+	padding-top: 3rem;
+}
+
+body::after {
+	content: '';
+	position: absolute;
+	width: calc(var(--mainWidth) + (var(--bg-blur) / 2));
+	height: 100%;
+	background: #000;
+	opacity: 0.75;
+	filter: blur(var(--bg-blur));
+	z-index: -1;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	position: fixed;
+	backdrop-filter: blur(var(--bg-blur));
 }
 
 /* #region ------------------------------ Main ------------------------------ */
 
 #mainWrap {
-	height: 300vh;
 	margin: 0 auto;
 	max-width: var(--mainWidth);
 	isolation: isolate;
 	display: flex;
 	flex-direction: column;
 	gap: 3rem;
-	padding-block: 3rem;
+	padding-bottom: 3rem;
+	position: relative;
 }
 
 #mainWrap > main > section {
 	background: var(--background-transparent);
 	backdrop-filter: var(--bg-backdrop);
 	border-radius: var(--radius-large);
-	box-shadow: var(--shadow-main);
 	position: relative;
 	padding: var(--padding-Main);
 }
@@ -142,48 +163,149 @@ body {
 
 /* #region ------------------------------ Nav ------------------------------ */
 
-#mainNav {
-	box-shadow: var(--shadow-main);
-	border-radius: var(--radius-large);
-}
-
-#mainNav.sticky {
-	position: fixed;
-	top: 0;
+#navWrap {
+	padding-bottom: 3rem;
+	max-width: var(--mainWidth);
+	margin: 0 auto;
+	position: relative;
 	z-index: 1000;
 }
 
-#mainNav ul{
+#mainNav {
 	border-radius: var(--radius-large);
-	padding:3rem;
+	top: 0;
+	transition: top, border-radius;
+	transition-duration: var(--transition-medium);
+}
+
+#mainNav.sticky {
+	padding-inline: 0;
+	position: fixed;
+	max-width: var(--mainWidth);
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	width: 100%;
+	margin: 0 auto;
+}
+
+#mainNav .navBG {
+	padding: 3rem;
+	margin: 0;
+	position: relative;
+}
+
+#mainNav .navBG::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: var(--radius-large);
+	background: var(--background-transparent);
+	backdrop-filter: var(--bg-backdrop);
+	transition: inset, box-shadow;
+	transition-duration: var(--transition-medium);
+	z-index: -1;
+}
+
+#mainNav.sticky .navBG::after {
+	inset: 15px;
+	border-top-left-radius: var(--radius-medium);
+	border-top-right-radius: var(--radius-medium);
+	border-radius: var(--radius-medium);
+}
+
+#mainNav .navBG::before {
+	content: '';
+	position: absolute;
+	width: calc(100% - (var(--bg-blur) / 2));
+	height: calc(100% - (var(--bg-blur) / 2));
+	background: #000;
+	opacity: 0.5;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: -1;
+	filter: blur(20px);
+	transition: width, height, opacity;
+	transition-duration: var(--transition-medium);
+	border-radius: var(--radius-large);
+}
+
+#mainNav.sticky .navBG::before {
+	width: 100%;
+	height: calc(100% + 40px);
+}
+
+#mainNav ul {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 1rem;
 	z-index: 100;
 	top: 0;
 	left: 0;
-	background: var(--background-transparent);
-	backdrop-filter: var(--bg-backdrop);
+	padding: 0;
 	justify-content: center;
-
 }
 
-#mainNav ul>li {
+#mainNav ul > li {
 	display: inline-block;
+	position: relative;
 }
 
-#mainNav ul>li ul {
-	display: none;
+#mainNav ul > li ul {
+	display: flex;
 	position: absolute;
-	background: var(--background-transparent);
-	backdrop-filter: blur(10px);
-	border-radius: var(--radius);
-	padding: 0.5rem;
-	margin-top: 0.5rem;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 100%;
+	padding: 1.5rem;
+	pointer-events: none;
+	transition: opacity, margin-top, scale;
+	transition-duration:  var(--transition-medium);
+	opacity: 0;
+	margin-top: 0;
+	scale: .8;
+	transform-origin: top left;
 }
 
-#mainNav ul>li:is(:hover, :focus) ul {
-	display: block;
+#mainNav ul > li ul::after {
+	content: '';
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height: 100%;
+	z-index: -1;
+	background: var(--background-transparent);
+	backdrop-filter: blur(var(--bg-blur));
+	border-radius: var(--radius);
+}
+
+#mainNav ul > li ul::before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: calc(100% + 15px);
+	background: linear-gradient(to bottom, transparent 15px, #000 15px);
+	opacity: 0.5;
+	top: -15px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	z-index: -1;
+	filter: blur(20px);
+	transition: width, height, opacity;
+	transition-duration: var(--transition-medium);
+	border-radius: var(--radius-large);
+}
+
+
+#mainNav ul > li:is(:hover, :focus) ul {
+	opacity: 1;
+	pointer-events: all;
+	margin-top: 15px;
+	scale: 1;
 }
 
 /* #endregion ------------------------------ Nav ------------------------------ */

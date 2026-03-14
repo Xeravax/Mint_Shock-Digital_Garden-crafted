@@ -4,29 +4,39 @@ title: Mint Shock
 
 <!doctype html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1"/>
-      <title>{{ title }}</title>
-      <link rel="stylesheet" href="/assets/css/reset.css"/>
-      <link rel="stylesheet" href="/assets/css/main.css"/>
-   </head>
-   <body>
-      <div id="mainWrap">
-         <nav id="mainNav">
-            {{ collections.all | eleventyNavigation | eleventyNavigationToHtml | safe }}
-         </nav>
-         <main>
-            <section>
-               {{ content | safe }}
-            </section>
-         </main>
-      </div>
-      <canvas id="canvas"></canvas>
-      <script src="/assets/js/background-animation.js"></script>
-      <script>
-         new NoiseAnimation('canvas');
-      </script>
-      <script src="/assets/js/sticky-nav.js"></script>
-   </body>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{{ title }}</title>
+		<link rel="stylesheet" href="/assets/css/reset.css" />
+		<link rel="stylesheet" href="/assets/css/main.css" />
+	</head>
+	<body>
+		<div id="navWrap">
+			<nav id="mainNav">
+				<div class="navBG">
+					{{
+						collections.all
+							| eleventyNavigation
+							| eleventyNavigationToHtml
+							| safe
+					}}
+				</div>
+			</nav>
+		</div>
+		<div id="mainWrap">
+			<main>
+				<section>
+               Menü Springt
+					{{ content | safe }}
+				</section>
+			</main>
+		</div>
+		<canvas id="canvas"></canvas>
+		<script src="/assets/js/background-animation.js"></script>
+		<script>
+			new NoiseAnimation('canvas');
+		</script>
+		<script src="/assets/js/sticky-nav.js"></script>
+	</body>
 </html>
