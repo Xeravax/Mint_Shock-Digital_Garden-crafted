@@ -287,8 +287,8 @@ body::after {
 	content: '';
 	position: absolute;
 	width: 100%;
-	height: calc(100% + 15px);
-	background: linear-gradient(to bottom, transparent 15px, #000 15px);
+	height: calc(100% + 20px);
+	background: linear-gradient(to bottom, transparent 20px, #000 20px);
 	opacity: 0.5;
 	top: -15px;
 	left: 50%;
@@ -297,7 +297,6 @@ body::after {
 	filter: blur(20px);
 	transition: width, height, opacity;
 	transition-duration: var(--transition-medium);
-	border-radius: var(--radius-large);
 }
 
 
