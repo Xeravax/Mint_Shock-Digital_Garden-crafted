@@ -173,7 +173,7 @@ body::after {
 
 #mainNav {
 	border-radius: var(--radius-large);
-	top: 0;
+	top: 15px;
 	transition: top, border-radius;
 	transition-duration: var(--transition-medium);
 }
