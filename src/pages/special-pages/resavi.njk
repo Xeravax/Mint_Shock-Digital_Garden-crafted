@@ -67,8 +67,9 @@ eleventyNavigation:
 		card.className = 'card';
 		let imgHtml = '';
 		if (entry.Image && typeof entry.Image === 'object') {
-			// build an <img> tag using the smallest URL and srcset
-			imgHtml = `<img class="card-image" src="${entry.Image.src}"
+			// Use the largest resolution from srcset
+			const largestSrc = entry.Image.srcset[entry.Image.srcset.length - 1].split(' ')[0];
+			imgHtml = `<img class="card-image" src="${largestSrc}"
                     srcset="${entry.Image.srcset.join(', ')}"
                     alt="${entry.Image.alt || ''}">`;
 		}
