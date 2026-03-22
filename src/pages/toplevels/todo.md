@@ -9,6 +9,7 @@ eleventyNavigation:
 
 # {{ title }}
 ## General
+- Add more content
 ## ResAvi
 - Propper Card Styles
 - Propper Table Parsing

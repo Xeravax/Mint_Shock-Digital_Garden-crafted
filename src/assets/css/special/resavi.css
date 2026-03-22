@@ -1,0 +1,10 @@
+
+#cards {
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+   gap: 1rem;
+}
+.card {
+   background: var(--black);
+   border-radius: var(--radius);
+}

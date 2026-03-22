@@ -2,12 +2,17 @@
 layout: main-wrapper.njk
 title: ResAvi
 permalink: /resavi/
+additionalHead: <link rel="stylesheet" href="/assets/css/special/resavi.css" />
 eleventyNavigation:
    key: ResAvi
    parent: Stuff 
 ---
 
 <h1>{{ title }}</h1>
+<p>This is a page that showcases Avatar bases that have been setup for use in Resonite.</p>
+<p>All data on this page is pulled from the Resonite Wiki, so if you want to see more info about a base, or want to add a base, head over there!</p>
+
+
 <div id="cards"></div>
 <script>
    async function loadWikiData() {
