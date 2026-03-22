@@ -5,86 +5,81 @@ permalink: /resavi/
 additionalHead: <link rel="stylesheet" href="/assets/css/special/resavi.css" />
 eleventyNavigation:
    key: ResAvi
-   parent: Stuff 
+   parent: Stuff
 ---
 
 <h1>{{ title }}</h1>
-<p>This is a page that showcases Avatar bases that have been setup for use in Resonite.</p>
-<p>All data on this page is pulled from the Resonite Wiki, so if you want to see more info about a base, or want to add a base, head over there!</p>
-
+<p>
+	This is a page that showcases Avatar bases that have been setup for use in
+	Resonite.
+</p>
+<p>
+	All data on this page is pulled from the Resonite Wiki, so if you want to see
+	more info about a base, or want to add a base, head over there!
+</p>
 
 <div id="cards"></div>
 <script>
-   async function loadWikiData() {
-      const page = 'Resonite ready avatar bases';
-      const url = `https://wiki.resonite.com/api.php?action=parse&page=${page}&prop=text&format=json&origin=*`;
-      const res = await fetch(url);
-      const data = await res.json();
-      const html = data.parse.text['*'];
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const tables = doc.querySelectorAll('table.wikitable');
-      tables.forEach((table, ti) => {
-         const headers = [...table.querySelectorAll('th')].map(th => th.textContent.trim());
-         table.querySelectorAll('tr').forEach(row => {
-            const cells = [...row.querySelectorAll('td')].map(td => {
-               const img = td.querySelector('img');
-               if (img) { // return an object containing all three sizes
-                  return {
-                        src: img.src,
-                        srcset: img
-                        .srcset
-                        .split(',')
-                        .map(s => s.trim()), // ["…120px…", "…180px…", "…240px…"]
-                     alt: img.alt
-                  };
-               }
-               return td.textContent.trim();
-            });
-            if (cells.length) {
-               const entry = {};
-               headers.forEach((header, i) => {
-                  entry[header] = cells[i];
-               });
-               console.log('parsed row', entry); // ↪ for debugging
-               createCard(entry);
-            }
-         });
-         console.log(`table ${ti} headers:`, headers);
-      });
-   }
-   function createCard(entry) {
-      const container = document.getElementById('cards');
-      if (! container) {
-         return;
-      }
-      const card = document.createElement('div');
-      card.className = 'card';
-      let imgHtml = '';
-      if (entry.Image && typeof entry.Image === 'object') { // build an <img> tag using the smallest URL and srcset
-         imgHtml = `<img src="${
-            entry.Image.src
-         }"
-                    srcset="${
-            entry
-               .Image
-               .srcset
-               .join(', ')
-         }"
-                    alt="${
-            entry.Image.alt || ''
-         }">`;
-      }
-      card.innerHTML = `
+	async function loadWikiData() {
+		const page = 'Resonite ready avatar bases';
+		const url = `https://wiki.resonite.com/api.php?action=parse&page=${page}&prop=text&format=json&origin=*`;
+		const res = await fetch(url);
+		const data = await res.json();
+		const html = data.parse.text['*'];
+		const parser = new DOMParser();
+		const doc = parser.parseFromString(html, 'text/html');
+		const tables = doc.querySelectorAll('table.wikitable');
+		tables.forEach((table, ti) => {
+			const headers = [...table.querySelectorAll('th')].map((th) =>
+				th.textContent.trim(),
+			);
+			table.querySelectorAll('tr').forEach((row) => {
+				const cells = [...row.querySelectorAll('td')].map((td) => {
+					const img = td.querySelector('img');
+					if (img) {
+						// return an object containing all three sizes
+						return {
+							src: img.src,
+							srcset: img.srcset.split(',').map((s) => s.trim()), // ["…120px…", "…180px…", "…240px…"]
+							alt: img.alt,
+						};
+					}
+					return td.textContent.trim();
+				});
+				if (cells.length) {
+					const entry = {};
+					headers.forEach((header, i) => {
+						entry[header] = cells[i];
+					});
+					console.log('parsed row', entry); // ↪ for debugging
+					createCard(entry);
+				}
+			});
+			console.log(`table ${ti} headers:`, headers);
+		});
+	}
+	function createCard(entry) {
+		const container = document.getElementById('cards');
+		if (!container) {
+			return;
+		}
+		const card = document.createElement('div');
+		card.className = 'card';
+		let imgHtml = '';
+		if (entry.Image && typeof entry.Image === 'object') {
+			// build an <img> tag using the smallest URL and srcset
+			imgHtml = `<img class="card-image" src="${entry.Image.src}"
+                    srcset="${entry.Image.srcset.join(', ')}"
+                    alt="${entry.Image.alt || ''}">`;
+		}
+		card.innerHTML = `
     ${imgHtml}
-    <h2>${
-         entry['Base name'] || 'Unknown'
-      }</h2>
-    <p>Artist: ${
-         entry.Artist || '-'
-      }</p>
+    <div class="cardContent">
+      <h2>${entry['Base name'] || 'Unknown'}</h2>
+      <p>Artist: ${entry.Artist || '-'}</p>
+    </div>
   `;
-      container.appendChild(card);
-   }
-   document.addEventListener('DOMContentLoaded', loadWikiData);
+		container.appendChild(card);
+	}
+	document.addEventListener('DOMContentLoaded', loadWikiData);
 </script>

@@ -38,6 +38,11 @@
 	--transition-medium: 350ms;
 	--transition-slow: 500ms;
 
+	--gap: 30px;
+	--gap-medium: 45px;
+	--gap-large: 60px;
+	--gap-extra-large: 90px;
+
 	/* #region ------------------------------ FontFaces ------------------------------ */
 
 	/* odibee-sans-regular - latin */
@@ -163,6 +168,10 @@ body::after {
 
 /* #region ------------------------------ Nav ------------------------------ */
 
+#navLogo {
+	width: 5rem;
+}
+
 #navWrap {
 	padding-bottom: 3rem;
 	max-width: var(--mainWidth);
@@ -194,6 +203,9 @@ body::after {
 	padding: 3rem;
 	margin: 0;
 	position: relative;
+	display: flex;
+	align-items: center;
+	gap: var(--gap-medium);
 }
 
 #mainNav .navBG::after {

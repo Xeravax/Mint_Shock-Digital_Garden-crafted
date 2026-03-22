@@ -1,10 +1,23 @@
-
 #cards {
-   display: grid;
-   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-   gap: 1rem;
-}
-.card {
-   background: var(--black);
-   border-radius: var(--radius);
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 1rem;
+   gap: var(--gap);
+
+	& .card {
+		background: var(--black);
+		border-radius: var(--radius);
+	}
+
+	& .card .card-image {
+		width: 100%;
+		object-fit: cover;
+		border-top-left-radius: var(--radius);
+		border-top-right-radius: var(--radius);
+      aspect-ratio: 1;
+	}
+
+   & .card .cardContent {
+      padding: 1rem;
+   }
 }
