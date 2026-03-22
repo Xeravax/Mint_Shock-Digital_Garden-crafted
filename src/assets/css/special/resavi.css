@@ -6,15 +6,22 @@
 
 	& .card {
 		background: var(--black);
-		border-radius: var(--radius);
+		border-radius: var(--radius-medium);
+      border: var(--gap-tiny) solid var(--black);
+      overflow: hidden;
 	}
 
 	& .card .card-image {
 		width: 100%;
-		object-fit: cover;
-		border-top-left-radius: var(--radius);
-		border-top-right-radius: var(--radius);
+		object-fit: contain;
+      object-position: center;
       aspect-ratio: 1;
+      border-radius: 0 0 var(--radius) var(--radius);
+
+      &.square-image {
+         /* Style square images differently, e.g., use cover instead of contain */
+         object-fit: cover;
+      }
 	}
 
    & .card .cardContent {

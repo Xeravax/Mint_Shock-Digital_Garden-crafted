@@ -38,6 +38,8 @@
 	--transition-medium: 350ms;
 	--transition-slow: 500ms;
 
+	--gap-tiny: 7px;
+	--gap-small: 15px;
 	--gap: 30px;
 	--gap-medium: 45px;
 	--gap-large: 60px;
@@ -140,7 +142,6 @@ body::after {
 	left: 50%;
 	transform: translateX(-50%);
 	position: fixed;
-	backdrop-filter: blur(var(--bg-blur));
 }
 
 /* #region ------------------------------ Main ------------------------------ */
@@ -162,6 +163,10 @@ body::after {
 	border-radius: var(--radius-large);
 	position: relative;
 	padding: var(--padding-Main);
+}
+
+#mainWrap p+* {
+	margin-top: var(--gap-tiny);
 }
 
 /* #endregion ------------------------------ Main ------------------------------ */

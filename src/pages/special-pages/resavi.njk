@@ -28,7 +28,7 @@ eleventyNavigation:
 		const html = data.parse.text['*'];
 		const parser = new DOMParser();
 		const doc = parser.parseFromString(html, 'text/html');
-		const tables = doc.querySelectorAll('table.wikitable');
+		const tables = doc.querySelectorAll('table.avatarTable.wikitable');
 		tables.forEach((table, ti) => {
 			const headers = [...table.querySelectorAll('th')].map((th) =>
 				th.textContent.trim(),
@@ -71,16 +71,26 @@ eleventyNavigation:
 			const largestSrc = entry.Image.srcset[entry.Image.srcset.length - 1].split(' ')[0];
 			imgHtml = `<img class="card-image" src="${largestSrc}"
                     srcset="${entry.Image.srcset.join(', ')}"
-                    alt="${entry.Image.alt || ''}">`;
+                    alt="${entry.Image.alt || ''}" onload="checkAspectRatio(this)">`;
+		} else {
+			// Display a missing image placeholder
+			imgHtml = `<img class="card-image square-image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjY2NjIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5ObyBJbWFnZTwvdGV4dD48L3N2Zz4="
+                    alt="No Image Available">`;
 		}
 		card.innerHTML = `
     ${imgHtml}
     <div class="cardContent">
-      <h2>${entry['Base name'] || 'Unknown'}</h2>
+      <h2>${entry['Name'] || 'Unknown'}</h2>
       <p>Artist: ${entry.Artist || '-'}</p>
     </div>
   `;
 		container.appendChild(card);
+	}
+	function checkAspectRatio(img) {
+		const ratio = img.naturalWidth / img.naturalHeight;
+		if (Math.abs(ratio - 1) < 0.1) {
+			img.classList.add('square-image');
+		}
 	}
 	document.addEventListener('DOMContentLoaded', loadWikiData);
 </script>
