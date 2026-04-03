@@ -84,8 +84,12 @@ eleventyNavigation:
 			imgHtml = `<img class="card-image square-image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjY2NjIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5ObyBJbWFnZTwvdGV4dD48L3N2Zz4="
                     alt="No Image Available">`;
 		}
+		const licenseHtml = entry.License ? `<div class="cardLicense">${entry.License}</div>` : '';
 		card.innerHTML = `
-    ${imgHtml}
+    <div class="cardImage">
+      ${imgHtml}
+      ${licenseHtml}
+    </div>
     <div class="cardContent">
       <h2 class="h5">${entry['Name'] || 'Unknown'}</h2>
       <p>Artist: ${entry.Artist || '-'}</p>

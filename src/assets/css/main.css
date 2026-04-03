@@ -185,13 +185,11 @@ h6,
 	--headline-deco: var(--cyan);
 }
 
-:not(.headlineDecoHide)
-	:is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6) {
+:is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6) {
 	padding-left: var(--gap-small);
 }
 
-:not(.headlineDecoHide)
-	:is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6)::before {
+:is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6)::before {
 	content: '';
 	position: absolute;
 	inset: 0 auto 0 0;
@@ -207,7 +205,8 @@ h6,
 	padding-left: 0;
 }
 
-.headlineDecoHide :is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6)::before {
+.headlineDecoHide
+	:is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6)::before {
 	display: none;
 }
 
