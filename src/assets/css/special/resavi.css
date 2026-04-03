@@ -30,10 +30,11 @@
 			background-position: center;
 			filter: blur(10px);
 			z-index: 0;
+         opacity: 0.5;
 		}
 
 		&:has(.squareImage)::before {
-         display: none;
+			display: none;
 		}
 
 		& .cardLicense {
@@ -45,22 +46,22 @@
 			padding: var(--gap-tiny);
 			background: var(--black);
 			line-height: 1;
-         border-top-left-radius: var(--radius);
+			border-top-left-radius: var(--radius);
 		}
 	}
 	& .card .cardImage {
 		position: relative;
 		z-index: 1;
 		width: 100%;
+		max-height: 100%;
 		object-fit: contain;
 		object-position: center;
 		aspect-ratio: 1;
-		border-radius: 0 0 calc(var(--radius-medium) + 1px) calc(var(--radius-medium) + 1px);
 
 		&.squareImage {
 			/* Style square images differently, e.g., use cover instead of contain */
 			object-fit: cover;
-			aspect-ratio: 1;
+			border-radius: 0 0 calc(var(--radius) + 1px) calc(var(--radius) + 1px);
 		}
 	}
 

@@ -255,6 +255,10 @@ a:is(:hover, :focus) {
 	color: var(--cyan);
 }
 
+:is(ul, ol) {
+	padding-left: var(--gap-small);
+}
+
 /* #region ------------------------------ Main ------------------------------ */
 
 #mainWrap {
