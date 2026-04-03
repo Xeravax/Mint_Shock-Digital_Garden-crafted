@@ -14,7 +14,7 @@ eleventyNavigation:
 	Resonite.
 </p>
 <p>
-	All data on this page is pulled from the Resonite Wiki, so if you want to see
+	All data on this page is pulled from the <a href="https://wiki.resonite.com/Resonite_ready_avatar_bases">Resonite Wiki</a>, so if you want to see
 	more info about a base, or want to add a base, head over there!
 </p>
 
@@ -44,7 +44,7 @@ eleventyNavigation:
 							alt: img.alt,
 						};
 					}
-					return td.textContent.trim();
+					return td.innerHTML.trim();
 				});
 				if (cells.length) {
 					const entry = {};
@@ -80,7 +80,7 @@ eleventyNavigation:
 		card.innerHTML = `
     ${imgHtml}
     <div class="cardContent">
-      <h2>${entry['Name'] || 'Unknown'}</h2>
+      <h2 class="h5">${entry['Name'] || 'Unknown'}</h2>
       <p>Artist: ${entry.Artist || '-'}</p>
     </div>
   `;
