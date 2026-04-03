@@ -73,22 +73,24 @@ eleventyNavigation:
 		const card = document.createElement('div');
 		card.className = 'card';
 		let imgHtml = '';
+		let bgImageStyle = '';
 		if (entry.Image && typeof entry.Image === 'object') {
 			// Use the largest resolution from srcset
 			const largestSrc = entry.Image.srcset[entry.Image.srcset.length - 1].split(' ')[0];
-			imgHtml = `<img class="card-image" src="${largestSrc}"
+			bgImageStyle = `style="--bg-image: url('${largestSrc}');"`;
+			imgHtml = `<img class="cardImage" src="${largestSrc}"
                     srcset="${entry.Image.srcset.join(', ')}"
                     alt="${entry.Image.alt || ''}" onload="checkAspectRatio(this)">`;
 		} else {
 			// Display a missing image placeholder
-			imgHtml = `<img class="cardImage square-image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjY2NjIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5ObyBJbWFnZTwvdGV4dD48L3N2Zz4="
+			imgHtml = `<img class="cardImage squareImage" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjY2NjIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5ObyBJbWFnZTwvdGV4dD48L3N2Zz4="
                     alt="No Image Available">`;
 		}
 		const licenseHtml = entry.License ? `<div class="cardLicense">${entry.License}</div>` : '';
 		card.innerHTML = `
-    <div class="cardTop">
-      ${imgHtml}
+    <div class="cardTop" ${bgImageStyle}>
       ${licenseHtml}
+      ${imgHtml}
     </div>
     <div class="cardContent">
       <h2 class="h5">${entry['Name'] || 'Unknown'}</h2>
@@ -99,8 +101,8 @@ eleventyNavigation:
 	}
 	function checkAspectRatio(img) {
 		const ratio = img.naturalWidth / img.naturalHeight;
-		if (Math.abs(ratio - 1) < 0.1) {
-			img.classList.add('square-image');
+		if (Math.abs(ratio - 1) < 0.2) {
+			img.classList.add('squareImage');
 		}
 	}
 	document.addEventListener('DOMContentLoaded', loadWikiData);
