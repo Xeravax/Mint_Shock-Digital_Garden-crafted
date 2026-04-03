@@ -10,10 +10,10 @@ eleventyNavigation:
 # {{ title }}
 ## General
 - Add more content
-- Replaace "Odibee Sans" with a more readable font
+- Replace "Odibee Sans" with a more readable font
 - bg scrolls really fast if content height close to 100vh
 ## ResAvi
-- Propper Card Styles
+- Proper Card Styles
 - Sorting
-- Propper Table Parsing
+- Proper Table Parsing
 - Better filling of templates

@@ -210,6 +210,16 @@ h6,
 	display: none;
 }
 
+* + :is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6) {
+	margin-top: var(--gap);
+}
+
+:is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6)
+	+ :is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6), :is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6) + .callout
+	 {
+	margin-top: 0;
+}
+
 h2,
 .h2 {
 	font-size: var(--headline-size-h2);
@@ -246,17 +256,30 @@ h6,
 }
 
 a {
-	color: var(--yellow);
+	color: var(--cyan);
 	text-underline-offset: 3px;
-	transition: color var(--transition-medium);
+	transition:
+		color var(--transition-medium),
+		text-underline-offset var(--transition-fast);
 }
 
 a:is(:hover, :focus) {
-	color: var(--cyan);
+	color: var(--yellow);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	a:is(:hover, :focus) {
+		text-underline-offset: 5px;
+	}
 }
 
 :is(ul, ol) {
 	padding-left: var(--gap-small);
+}
+
+:is(ul ul, ul ol, ol ul, ol ol) {
+	padding-left: var(--gap);
+	margin-bottom: calc(var(--gap-small) / 2);
 }
 
 /* #region ------------------------------ Main ------------------------------ */
@@ -285,7 +308,7 @@ mainWrap > main {
 	padding: var(--padding-Main);
 }
 
-#mainWrap p + * {
+p + * {
 	margin-top: var(--gap-tiny);
 }
 
@@ -458,6 +481,8 @@ mainWrap > main {
 
 /* #endregion ------------------------------ Nav ------------------------------ */
 
+/* #region ------------------------------ Codeblocks ------------------------------ */
+
 canvas {
 	position: fixed;
 	top: 0;
@@ -543,3 +568,16 @@ pre > code {
 		}
 	}
 }
+
+/* #endregion ------------------------------ Codeblocks ------------------------------ */
+
+/* #region ------------------------------ Callouts ------------------------------ */
+
+.callout {
+	background: var(--black);
+	border-radius: var(--radius-medium);
+	padding: var(--gap-small);
+	margin-block: var(--gap);
+}
+
+/* #endregion ------------------------------ Callouts ------------------------------ */
