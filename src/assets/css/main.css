@@ -185,20 +185,26 @@ h6,
 	--headline-deco: var(--cyan);
 }
 
-:is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6) {
+:not(.headlineDecoHide)
+	:is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6) {
 	padding-left: var(--gap-small);
 }
 
-:is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6)::before {
+:not(.headlineDecoHide)
+	:is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6)::before {
 	content: '';
 	position: absolute;
 	inset: 0 auto 0 0;
 	border-radius: var(--radius);
 	background: var(--headline-deco);
-	height: calc(100% - (100% / 2) + .5rem);
+	height: calc(100% - (100% / 2) + 0.5rem);
 	top: 50%;
 	transform: translateY(-55%);
 	width: var(--line-thickness);
+}
+
+.headlineDecoHide :is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6) {
+	padding-left: 0;
 }
 
 .headlineDecoHide :is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6)::before {
@@ -244,7 +250,6 @@ a {
 	color: var(--yellow);
 	text-underline-offset: 3px;
 	transition: color var(--transition-medium);
-
 }
 
 a:is(:hover, :focus) {
@@ -391,7 +396,7 @@ mainWrap > main {
 	transition: color var(--transition-medium);
 }
 
-#mainNav ul > li:is(:hover, :focus)>a {
+#mainNav ul > li:is(:hover, :focus) > a {
 	color: var(--yellow);
 }
 
