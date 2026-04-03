@@ -66,9 +66,9 @@ For planned Features and issues see the [GitHub repository](https://github.com/M
   - Also uses a lot of dynamic variables. This can cause a slight lag spike in some cases when spawned due to all of the Dynvars needing to bind to their spaces.
 
 ## Compatibility / Integrations
-> [!warn]- This is a alpha version!!!
+> [!warn] This is a alpha version!!!
 
-what does that mean?
+**what does that mean?**
 - Anything that tries to integrate with the manager at this early stage of development, will likely break in the future.
 - I do not commit to not making breaking changes while this is in Alpha and Beta phase.
 - I will try to not break existing stuff too badly, but if it benefits the Manager in the long run, then I’ll make changes to its internal structure without explicitly adding backwards compatibility.

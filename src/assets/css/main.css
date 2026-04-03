@@ -435,18 +435,19 @@ p + * {
 	padding: 1.5rem;
 	pointer-events: none;
 	opacity: 0;
-	margin-top: 15px;
-		transform-origin: top left;
-	transition: opacity;
+	scale: 0.8;
+	margin-top: 0;
+	transform-origin: top left;
+	transition: opacity, margin-top, scale;
 	transition-duration: var(--transition-medium);
 }
 
-@media (prefers-reduced-motion: no-preference) {
+@media (prefers-reduced-motion: reduce) {
 	#mainNav ul > li ul {
-	margin-top: 0;
-	scale: 0.8;
-	transition: opacity, margin-top, scale;
-	transition-duration: var(--transition-medium);
+		margin-top: 15px;
+		scale: 1;
+		transition: opacity;
+		transition-duration: var(--transition-medium);
 	}
 }
 
@@ -491,7 +492,7 @@ p + * {
 
 /* #region ------------------------------ Codeblocks ------------------------------ */
 
-canvas {
+#bgCanvas {
 	position: fixed;
 	top: 0;
 	left: 0;
