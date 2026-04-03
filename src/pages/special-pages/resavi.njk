@@ -18,7 +18,7 @@ eleventyNavigation:
 	more info about a base, or want to add a base, head over there!
 </p>
 
-<div id="cards"></div>
+<div id="cards" class="headlineDecoHide"></div>
 <script>
 	async function loadWikiData() {
 		const page = 'Resonite ready avatar bases';
@@ -44,6 +44,13 @@ eleventyNavigation:
 							alt: img.alt,
 						};
 					}
+					// Process links in the cell
+					const links = td.querySelectorAll('a');
+					links.forEach((a) => {
+						if (a.getAttribute('href').startsWith('/')) {
+							a.setAttribute('href', 'https://wiki.resonite.com' + a.getAttribute('href'));
+						}
+					});
 					return td.innerHTML.trim();
 				});
 				if (cells.length) {
