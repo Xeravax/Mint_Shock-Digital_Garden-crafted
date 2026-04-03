@@ -2,29 +2,41 @@
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 	gap: 1rem;
-   gap: var(--gap);
+	gap: var(--gap);
 
 	& .card {
 		background: var(--black);
 		border-radius: var(--radius-medium);
-      border: var(--gap-tiny) solid var(--black);
-      overflow: hidden;
+		border: var(--gap-tiny) solid var(--black);
+		overflow: hidden;
 	}
 
-	& .card .card-image {
+	& .card .cardTop {
+		position: relative;
+		aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+
+		& .cardLicense {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+		}
+	}
+	& .card .cardImage {
 		width: 100%;
 		object-fit: contain;
-      object-position: center;
-      aspect-ratio: 1;
-      border-radius: 0 0 var(--radius) var(--radius);
+		object-position: center;
+		aspect-ratio: 1;
+		border-radius: 0 0 var(--radius) var(--radius);
 
-      &.square-image {
-         /* Style square images differently, e.g., use cover instead of contain */
-         object-fit: cover;
-      }
+		&.square-image {
+			/* Style square images differently, e.g., use cover instead of contain */
+			object-fit: cover;
+		}
 	}
 
-   & .card .cardContent {
-      padding: 1rem;
-   }
+	& .card .cardContent {
+		padding: 1rem;
+	}
 }
