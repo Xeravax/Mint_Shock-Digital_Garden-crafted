@@ -30,6 +30,18 @@ eleventyNavigation:
 		const doc = parser.parseFromString(html, 'text/html');
 		const tables = doc.querySelectorAll('table.avatarTable.wikitable');
 		tables.forEach((table, ti) => {
+			let category = 'unknown';
+			let current = table.previousElementSibling;
+			while (current) {
+				if (current.classList && current.classList.contains('mw-heading')) {
+					const h = current.querySelector('h3, h4');
+					if (h && h.id) {
+						category = h.id.toLowerCase().replace(/[^a-z0-9]/g, '-');
+					}
+					break;
+				}
+				current = current.previousElementSibling;
+			}
 			const headers = [...table.querySelectorAll('th')].map((th) =>
 				th.textContent.trim(),
 			);
@@ -59,19 +71,20 @@ eleventyNavigation:
 						entry[header] = cells[i];
 					});
 					console.log('parsed row', entry); // ↪ for debugging
-					createCard(entry);
+					createCard(entry, category);
 				}
 			});
 			console.log(`table ${ti} headers:`, headers);
 		});
 	}
-	function createCard(entry) {
+	function createCard(entry, category) {
 		const container = document.getElementById('cards');
 		if (!container) {
 			return;
 		}
 		const card = document.createElement('div');
-		card.className = 'card';
+		const categoryClass = category ? `card-${category}` : '';
+		card.className = `card ${categoryClass}`.trim();
 		let imgHtml = '';
 		let bgImageStyle = '';
 		if (entry.Image && typeof entry.Image === 'object') {
@@ -89,6 +102,7 @@ eleventyNavigation:
 		const licenseHtml = entry.License ? `<div class="cardLicense">${entry.License}</div>` : '';
 		card.innerHTML = `
     <div class="cardTop" ${bgImageStyle}>
+		<span class="cardCategory ${category}"></span>
       ${licenseHtml}
       ${imgHtml}
     </div>

@@ -9,63 +9,172 @@
 		border-radius: var(--radius-medium);
 		border: var(--gap-tiny) solid var(--black);
 		overflow: hidden;
-	}
 
-	& .card .cardTop {
-		position: relative;
-		aspect-ratio: 1;
-		display: grid;
-		place-items: center;
-		background-size: cover;
-		background-position: center;
-		border-radius: 0 0 var(--radius) var(--radius);
-		overflow: hidden;
-
-		&::before {
-			content: '';
-			position: absolute;
-			inset: -30px;
-			background-image: var(--bg-image);
+		& .cardTop {
+			position: relative;
+			aspect-ratio: 1;
+			display: grid;
+			place-items: center;
 			background-size: cover;
 			background-position: center;
-			filter: blur(10px);
-			z-index: 0;
-         opacity: 0.5;
+			border-radius: 0 0 var(--radius) var(--radius);
+
+			&:not(:has(.squareImage)) {
+				overflow: hidden;
+			}
+
+			&::before {
+				content: '';
+				position: absolute;
+				inset: -30px;
+				background-image: var(--bg-image);
+				background-size: cover;
+				background-position: center;
+				filter: blur(10px);
+				z-index: 0;
+				opacity: 0.5;
+			}
+
+			&:has(.squareImage)::before {
+				display: none;
+			}
+
+			& .cardCategory {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: var(--gap-medium);
+				width: var(--gap-medium);
+				background: var(--black);
+				z-index: 2;
+				border-bottom-right-radius: var(--radius);
+
+				&::after {
+					content: '';
+					position: absolute;
+					inset: 5px;
+					mask-size: contain;
+					mask-position: center;
+					mask-repeat: no-repeat;
+				}
+
+				&.avian::after {
+					mask-image: url(/assets/img/special/resavi/avian.svg);
+					background: var(--orange);
+				}
+
+				&.canine::after {
+					mask-image: url(/assets/img/special/resavi/canine.svg);
+					background: var(--red);
+				}
+
+				&.feline::after {
+					mask-image: url(/assets/img/special/resavi/feline.svg);
+					background: var(--purple);
+				}
+
+				&.insects::after {
+					mask-image: url(/assets/img/special/resavi/insects.svg);
+					background: var(--blue);
+				}
+
+				&.reptilians---scalies::after {
+					mask-image: url(/assets/img/special/resavi/scalies.svg);
+					background: var(--cyan);
+				}
+
+				&.aquatic::after {
+					mask-image: url(/assets/img/special/resavi/aquatic.svg);
+					background: var(--turquoise);
+				}
+
+				&.fantasy---custom---original---misc---other::after {
+					mask-image: url(/assets/img/special/resavi/misc.svg);
+					background: var(--green);
+				}
+
+				&.robotic::after {
+					mask-image: url(/assets/img/special/resavi/robotic.svg);
+					background: var(--yellow);
+				}
+
+				&.humanoid::after {
+					mask-image: url(/assets/img/special/resavi/humanoid.svg);
+					background: var(--orange);
+				}
+			}
+
+			& .cardLicense {
+				position: absolute;
+				z-index: 2;
+				bottom: 0;
+				right: 0;
+				text-align: right;
+				padding: var(--gap-tiny);
+				background: var(--black);
+				line-height: 1;
+				border-top-left-radius: var(--radius);
+			}
 		}
 
-		&:has(.squareImage)::before {
-			display: none;
+		& .cardImage {
+			position: relative;
+			z-index: 1;
+			width: 100%;
+			max-height: 100%;
+			object-fit: contain;
+			object-position: center;
+			aspect-ratio: 1;
+
+			&.squareImage {
+				/* Style square images differently, e.g., use cover instead of contain */
+				object-fit: cover;
+				border-radius: 0 0 calc(var(--radius) + 1px)
+					calc(var(--radius) + 1px);
+			}
 		}
 
-		& .cardLicense {
-			position: absolute;
-			z-index: 2;
-			bottom: 0;
-			right: 0;
-			text-align: right;
-			padding: var(--gap-tiny);
-			background: var(--black);
-			line-height: 1;
-			border-top-left-radius: var(--radius);
+		& .cardContent {
+			padding: 1rem;
 		}
 	}
-	& .card .cardImage {
-		position: relative;
-		z-index: 1;
-		width: 100%;
-		max-height: 100%;
-		object-fit: contain;
-		object-position: center;
-		aspect-ratio: 1;
+}
 
-		&.squareImage {
-			/* Style square images differently, e.g., use cover instead of contain */
-			object-fit: cover;
-			border-radius: 0 0 calc(var(--radius) + 1px) calc(var(--radius) + 1px);
-		}
+/* Category color definitions */
+#cards {
+	& .card-avian {
+		--category-color: #ff6b6b;
 	}
 
-	& .card .cardContent {
-		padding: 1rem;
+	& .card-canine {
+		--category-color: #8b4513;
+	}
+
+	& .card-feline {
+		--category-color: #ffd700;
+	}
+
+	& .card-insects {
+		--category-color: #228b22;
+	}
+
+	& .card-reptilians-scalies {
+		--category-color: #20b2aa;
+	}
+
+	& .card-aquatic {
+		--category-color: #4169e1;
+	}
+
+	& .card-fantasy-custom-original-misc-other {
+		--category-color: #9370db;
+	}
+
+	& .card-robotic {
+		--category-color: #c0c0c0;
+	}
+
+	& .card-humanoid {
+		--category-color: #ffa500;
 	}
 }

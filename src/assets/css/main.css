@@ -29,7 +29,7 @@
 	--orange: #fcb57d;
 	--yellow: var(--mint-yellow);
 	--green: #7afc94;
-	--turquoise: #7aedfc;
+	--turquoise: #7afce0;
 	--cyan: var(--mint-cyan);
 	--blue: #7a82fc;
 	--purple: #e07afc;
@@ -299,6 +299,13 @@ a:is(:hover, :focus) {
 :is(ul ul, ul ol, ol ul, ol ol) {
 	padding-left: var(--gap);
 	margin-bottom: calc(var(--gap-small) / 2);
+}
+
+li>img,
+p>img {
+	height: 2rem;
+	vertical-align: middle;
+	display: inline-block;
 }
 
 /* #region ------------------------------ Main ------------------------------ */
