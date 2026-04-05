@@ -163,7 +163,7 @@ class ResAviManager {
 		html = html.replace('{{category}}', entry.category || '');
 
 		const licenseHtml = entry.License && entry.License.content
-			? `<div class="cardLicense">${entry.License.content}</div>`
+			? this.createLicenseHtml(entry.License.content)
 			: '';
 		html = html.replace('{{licenseHtml}}', licenseHtml);
 
@@ -201,6 +201,24 @@ class ResAviManager {
 		}
 	}
 
+	createLicenseHtml(licenseContent) {
+		const lowerContent = licenseContent.toLowerCase();
+		
+		if (lowerContent.includes('paid')) {
+			// Extract price from "Paid (...)" patterns and preserve full strings like ranges
+			const priceMatch = licenseContent.match(/\(([^)]*)\)/);
+			if (priceMatch) {
+				let priceStr = priceMatch[1].trim();				priceStr = priceStr.replace(/\s*USD\s*/gi, '');				if (!priceStr.startsWith('$')) {
+					priceStr = `$${priceStr}`;
+				}
+				return `<div class="cardLicense license-paid">${priceStr}</div>`;
+			}
+			return `<div class="cardLicense license-paid">Paid</div>`;
+		}
+		
+		return `<div class="cardLicense license-free">${licenseContent}</div>`;
+	}
+
 	checkAspectRatio(img) {
 		const ratio = img.naturalWidth / img.naturalHeight;
 		if (Math.abs(ratio - 1) < 0.2) {
@@ -215,13 +233,9 @@ class ResAviManager {
 	setupFilterOptions() {
 		// Collect unique categories
 		const categories = new Set();
-		const licenses = new Set();
 
 		this.entries.forEach((entry) => {
 			if (entry.category) categories.add(entry.category);
-			if (entry.License && entry.License.content) {
-				licenses.add(entry.License.content);
-			}
 		});
 
 		// Populate category filter
@@ -232,17 +246,6 @@ class ResAviManager {
 				option.value = cat;
 				option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1).replace(/-/g, ' ');
 				categorySelect.appendChild(option);
-			});
-		}
-
-		// Populate license filter
-		const licenseSelect = document.getElementById('licenseFilter');
-		if (licenseSelect) {
-			[...licenses].sort().forEach((license) => {
-				const option = document.createElement('option');
-				option.value = license;
-				option.textContent = license;
-				licenseSelect.appendChild(option);
 			});
 		}
 	}
@@ -260,10 +263,16 @@ class ResAviManager {
 			categoryFilter.addEventListener('change', (e) => this.applyFiltersAndSort());
 		}
 
-		// License filter
-		const licenseFilter = document.getElementById('licenseFilter');
-		if (licenseFilter) {
-			licenseFilter.addEventListener('change', (e) => this.applyFiltersAndSort());
+		// Free filter checkbox
+		const freeFilter = document.getElementById('freeFilter');
+		if (freeFilter) {
+			freeFilter.addEventListener('change', (e) => this.applyFiltersAndSort());
+		}
+
+		// Paid/free filter checkboxes
+		const paidFilter = document.getElementById('paidFilter');
+		if (paidFilter) {
+			paidFilter.addEventListener('change', (e) => this.applyFiltersAndSort());
 		}
 
 		// Sort by
@@ -288,7 +297,8 @@ class ResAviManager {
 	applyFiltersAndSort() {
 		const searchValue = document.getElementById('searchInput')?.value || '';
 		const categoryValue = document.getElementById('categoryFilter')?.value || '';
-		const licenseValue = document.getElementById('licenseFilter')?.value || '';
+		const freeValue = document.getElementById('freeFilter')?.checked || false;
+		const paidValue = document.getElementById('paidFilter')?.checked || false;
 		const sortByValue = document.getElementById('sortBy')?.value || 'category';
 		const sortOrderValue = document.getElementById('sortOrder')?.value || 'asc';
 
@@ -296,7 +306,8 @@ class ResAviManager {
 		const filters = {};
 		if (searchValue) filters.search = searchValue;
 		if (categoryValue) filters.category = categoryValue;
-		if (licenseValue) filters.license = licenseValue;
+		filters.includeFree = freeValue;
+		filters.includePaid = paidValue;
 
 		this.filterCards(filters);
 
@@ -308,7 +319,8 @@ class ResAviManager {
 	resetAllFilters() {
 		document.getElementById('searchInput').value = '';
 		document.getElementById('categoryFilter').value = '';
-		document.getElementById('licenseFilter').value = '';
+		document.getElementById('freeFilter').checked = true;
+		document.getElementById('paidFilter').checked = true;
 		document.getElementById('sortBy').value = 'category';
 		document.getElementById('sortOrder').value = 'asc';
 
@@ -318,11 +330,24 @@ class ResAviManager {
 
 	// Future expansion methods
 	sortCards(sortBy, ascending = true) {
-		// Sort by various fields: 'Name', 'Artist', 'category', etc.
+		// Sort by various fields: 'Name', 'Artist', 'category', 'Price', etc.
 		this.filteredEntries.sort((a, b) => {
 			let aVal = this.getSortValue(a, sortBy);
 			let bVal = this.getSortValue(b, sortBy);
 
+			// Special handling for price (numeric sorting)
+			if (sortBy === 'Price') {
+				const aNum = typeof aVal === 'number' ? aVal : parseFloat(aVal) || 0;
+				const bNum = typeof bVal === 'number' ? bVal : parseFloat(bVal) || 0;
+				
+				if (ascending) {
+					return aNum - bNum; // Ascending: smaller numbers first
+				} else {
+					return bNum - aNum; // Descending: larger numbers first
+				}
+			}
+
+			// String comparison for other fields
 			if (aVal < bVal) return ascending ? -1 : 1;
 			if (aVal > bVal) return ascending ? 1 : -1;
 			return 0;
@@ -331,6 +356,39 @@ class ResAviManager {
 	}
 
 	getSortValue(entry, field) {
+		if (field === 'Price') {
+			// Special handling for price sorting
+			const lowerLicense = entry.License && entry.License.content
+				? entry.License.content.toLowerCase()
+				: '';
+			const isPaid = lowerLicense.includes('paid');
+
+			if (!isPaid) {
+				return 0; // Free items cost $0
+			}
+
+			// Extract price from paid licenses - handle various formats
+			const priceMatch = entry.License.content.match(/\(([^)]*)\)/);
+			if (priceMatch) {
+				let priceStr = priceMatch[1].trim();
+				
+				// Extract the first number from the price string
+				// Handles formats like: $12$, $15/20USD, $40+, 20 USD, etc.
+				const numberMatch = priceStr.match(/(\d+(?:\.\d+)?)/);
+				if (numberMatch) {
+					return parseFloat(numberMatch[1]);
+				}
+				
+				// Fallback: try to parse the whole string after removing $ and USD
+				const cleanPrice = priceStr.replace(/\$/g, '').replace(/USD/i, '').trim();
+				const fallbackMatch = cleanPrice.match(/(\d+(?:\.\d+)?)/);
+				if (fallbackMatch) {
+					return parseFloat(fallbackMatch[1]);
+				}
+			}
+			return 0;
+		}
+
 		const value = entry[field];
 		if (!value) return '';
 
@@ -341,18 +399,30 @@ class ResAviManager {
 	}
 
 	filterCards(filters) {
-		// Filters object can contain: { category: 'string', license: 'string', search: 'string' }
+		// Filters object can contain: { category, search, includeFree, price }
 		this.filteredEntries = this.entries.filter((entry) => {
+			// Category filter
 			if (filters.category && entry.category !== filters.category) {
 				return false;
 			}
-			if (
-				filters.license &&
-				this.getSortValue(entry, 'License') !==
-					filters.license.toLowerCase()
-			) {
-				return false;
+
+			// Free/Paid filter
+			const lowerLicense = entry.License && entry.License.content
+				? entry.License.content.toLowerCase()
+				: '';
+			const isPaid = lowerLicense.includes('paid');
+
+			if (isPaid) {
+				if (!filters.includePaid) {
+					return false;
+				}
+			} else {
+				if (!filters.includeFree) {
+					return false;
+				}
 			}
+
+			// Search filter
 			if (filters.search) {
 				const searchTerm = filters.search.toLowerCase();
 				const name = this.getSortValue(entry, 'Name');
@@ -361,6 +431,7 @@ class ResAviManager {
 					return false;
 				}
 			}
+
 			return true;
 		});
 		this.renderCards();

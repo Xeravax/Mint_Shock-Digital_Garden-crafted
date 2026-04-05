@@ -38,6 +38,24 @@
 		select {
 			cursor: pointer;
 		}
+
+		&.price-range {
+			.price-inputs {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+
+				input {
+					width: 80px;
+					flex-shrink: 0;
+				}
+
+				span {
+					color: var(--white);
+					font-size: 0.9rem;
+				}
+			}
+		}
 	}
 
 	.reset-btn {
@@ -172,6 +190,18 @@
 				background: var(--black);
 				line-height: 1;
 				border-top-left-radius: var(--radius);
+
+				&.license-free {
+					background: var(--green, #4caf50);
+					color: var(--black);
+					font-weight: 600;
+				}
+
+				&.license-paid {
+					background: var(--orange, #ff9800);
+					color: var(--black);
+					font-weight: 600;
+				}
 			}
 		}
 
