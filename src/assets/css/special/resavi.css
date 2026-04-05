@@ -21,7 +21,7 @@
 		input,
 		select {
 			padding: 0.5rem;
-			background: var(--dark-gray, #222);
+			background: var(--gray);
 			color: var(--white);
 			border: 1px solid var(--gray);
 			border-radius: var(--radius);
@@ -38,30 +38,12 @@
 		select {
 			cursor: pointer;
 		}
-
-		&.price-range {
-			.price-inputs {
-				display: flex;
-				align-items: center;
-				gap: 0.5rem;
-
-				input {
-					width: 80px;
-					flex-shrink: 0;
-				}
-
-				span {
-					color: var(--white);
-					font-size: 0.9rem;
-				}
-			}
-		}
 	}
 
 	.reset-btn {
 		padding: 0.5rem 1rem;
-		background: var(--red, #d32f2f);
-		color: white;
+		background: var(--gray);
+		color: var(--red);
 		border: none;
 		border-radius: var(--radius);
 		cursor: pointer;
@@ -84,7 +66,6 @@
 		background: var(--black);
 		border-radius: var(--radius-medium);
 		border: var(--gap-tiny) solid var(--black);
-		overflow: hidden;
 
 		& .cardTop {
 			position: relative;
@@ -192,15 +173,11 @@
 				border-top-left-radius: var(--radius);
 
 				&.license-free {
-					background: var(--green, #4caf50);
-					color: var(--black);
-					font-weight: 600;
+					color: var(--green);
 				}
 
 				&.license-paid {
-					background: var(--orange, #ff9800);
-					color: var(--black);
-					font-weight: 600;
+					color: var(--orange);
 				}
 			}
 		}
@@ -213,56 +190,16 @@
 			object-fit: contain;
 			object-position: center;
 			aspect-ratio: 1;
+			border-radius: 0 calc(var(--radius) + var(--gap-tiny));
 
 			&.squareImage {
 				/* Style square images differently, e.g., use cover instead of contain */
 				object-fit: cover;
-				border-radius: 0 0 calc(var(--radius) + 1px)
-					calc(var(--radius) + 1px);
 			}
 		}
 
 		& .cardContent {
 			padding: 1rem;
 		}
-	}
-}
-
-/* Category color definitions */
-#cards {
-	& .card-avian {
-		--category-color: #ff6b6b;
-	}
-
-	& .card-canine {
-		--category-color: #8b4513;
-	}
-
-	& .card-feline {
-		--category-color: #ffd700;
-	}
-
-	& .card-insects {
-		--category-color: #228b22;
-	}
-
-	& .card-reptilians-scalies {
-		--category-color: #20b2aa;
-	}
-
-	& .card-aquatic {
-		--category-color: #4169e1;
-	}
-
-	& .card-fantasy-custom-original-misc-other {
-		--category-color: #9370db;
-	}
-
-	& .card-robotic {
-		--category-color: #c0c0c0;
-	}
-
-	& .card-humanoid {
-		--category-color: #ffa500;
 	}
 }

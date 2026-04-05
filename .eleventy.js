@@ -10,7 +10,13 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addPlugin(eleventyNavigationPlugin);
 
 	// Add lucide icons plugin
-	eleventyConfig.addPlugin(lucideIcons);
+	eleventyConfig.addPlugin(lucideIcons, {
+		class: 'custom-class',
+		width: 24,
+		height: 24,
+		stroke: 'currentColor',
+		'stroke-width': 2,
+	});
 
 	// Use markdown-it plugins in Eleventy
 	eleventyConfig.amendLibrary('md', (mdLib) => {

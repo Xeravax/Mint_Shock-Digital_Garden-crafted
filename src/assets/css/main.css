@@ -39,6 +39,7 @@
 	--background-transparent: #191919e0;
 	--bg-backdrop: blur(20px);
 	--black: #131313;
+	--gray: var(--mint-gray);
 	--white: #fff;
 
 	--link: var(--mint-yellow);
@@ -64,6 +65,9 @@
 	--gap-extra-large: 90px;
 
 	--line-thickness: 5px;
+	--gray-shadow: 0 0 var(--radius) 0 #00000077;
+	--gray-shadow-medium: 0 0 var(--radius-medium) 0 #000;
+	--dark-inset-shadow: inset 0 0 var(--radius) 0 #00000077;
 
 	/* #region ------------------------------ FontFaces ------------------------------ */
 
@@ -301,9 +305,8 @@ a:is(:hover, :focus) {
 	margin-bottom: calc(var(--gap-small) / 2);
 }
 
-li>img,
-p>img {
-	height: 2rem;
+:is(p, li) > :is(img, svg) {
+	height: 1.8rem;
 	vertical-align: middle;
 	display: inline-block;
 }
@@ -468,7 +471,7 @@ p + * {
 	transition-duration: var(--transition-medium);
 	background: var(--black);
 	border-radius: var(--radius);
-	box-shadow: 0 0 var(--radius-large) 0  #000;
+	box-shadow: var(--gray-shadow-medium);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -603,6 +606,11 @@ pre > code {
 	border-radius: var(--radius-medium);
 	padding: var(--gap-small);
 	margin-block: var(--gap);
+	box-shadow: var(--dark-inset-shadow);
+}
+.callout>.callout {
+	background: var(--gray);
+	box-shadow: var(--gray-shadow);
 }
 
 /* #endregion ------------------------------ Callouts ------------------------------ */
