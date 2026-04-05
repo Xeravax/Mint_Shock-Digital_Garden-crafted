@@ -1,5 +1,6 @@
 const eleventyNavigationPlugin = require('@11ty/eleventy-navigation');
 const markdownItCallouts = require('markdown-it-callouts').default;
+const lucideIcons = require('@grimlink/eleventy-plugin-lucide-icons');
 
 module.exports = function (eleventyConfig) {
 	// Copy static assets
@@ -7,6 +8,9 @@ module.exports = function (eleventyConfig) {
 
 	// Add navigation plugin
 	eleventyConfig.addPlugin(eleventyNavigationPlugin);
+
+	// Add lucide icons plugin
+	eleventyConfig.addPlugin(lucideIcons);
 
 	// Use markdown-it plugins in Eleventy
 	eleventyConfig.amendLibrary('md', (mdLib) => {

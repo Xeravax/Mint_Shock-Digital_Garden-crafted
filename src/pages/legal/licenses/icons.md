@@ -28,3 +28,6 @@ all these Icons are unchanged from the download except color, unless otherwise s
 ![Robotic icon](/assets/img/special/resavi/robotic.svg) Vintage robot icon by [Lorc](https://lorcblog.blogspot.com/) under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/) → [Game-icons.net](https://game-icons.net/1x1/lorc/vintage-robot.html)
 
 ![Robotic icon](/assets/img/special/resavi/humanoid.svg) Two shadows icon by [Lorc](https://lorcblog.blogspot.com/) under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/) → [Game-icons.net](https://game-icons.net/1x1/lorc/two-shadows.html)
+
+
+Test {% lucide "feather" %}
