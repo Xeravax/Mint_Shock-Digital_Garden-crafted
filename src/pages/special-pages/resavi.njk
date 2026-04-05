@@ -18,5 +18,45 @@ eleventyNavigation:
 	more info about a base, or want to add a base, head over there!
 </p>
 
+<div id="controls" class="resavi-controls">
+	<div class="control-group">
+		<label for="searchInput">Search:</label>
+		<input type="text" id="searchInput" placeholder="Search by name or artist...">
+	</div>
+
+	<div class="control-group">
+		<label for="categoryFilter">Category:</label>
+		<select id="categoryFilter">
+			<option value="">All Categories</option>
+		</select>
+	</div>
+
+	<div class="control-group">
+		<label for="licenseFilter">License:</label>
+		<select id="licenseFilter">
+			<option value="">All Licenses</option>
+		</select>
+	</div>
+
+	<div class="control-group">
+		<label for="sortBy">Sort by:</label>
+		<select id="sortBy">
+			<option value="Name">Name</option>
+			<option value="Artist">Artist</option>
+			<option value="category" selected>Category</option>
+		</select>
+	</div>
+
+	<div class="control-group">
+		<label for="sortOrder">Order:</label>
+		<select id="sortOrder">
+			<option value="asc">Ascending</option>
+			<option value="desc">Descending</option>
+		</select>
+	</div>
+
+	<button id="resetFilters" class="reset-btn">Reset Filters</button>
+</div>
+
 <div id="cards" class="headlineDecoHide"></div>
 <script src="/assets/js/special/resavi.js"></script>

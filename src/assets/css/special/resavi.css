@@ -1,3 +1,61 @@
+.resavi-controls {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	margin-bottom: 2rem;
+	padding: 1rem;
+	background: var(--black);
+	border-radius: var(--radius-medium);
+	align-items: flex-end;
+
+	.control-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+
+		label {
+			font-weight: 600;
+			font-size: 0.9rem;
+		}
+
+		input,
+		select {
+			padding: 0.5rem;
+			background: var(--dark-gray, #222);
+			color: var(--white);
+			border: 1px solid var(--gray);
+			border-radius: var(--radius);
+			font-family: inherit;
+			font-size: 1rem;
+
+			&:focus {
+				outline: none;
+				border-color: var(--accent-color, #0af);
+				box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.1);
+			}
+		}
+
+		select {
+			cursor: pointer;
+		}
+	}
+
+	.reset-btn {
+		padding: 0.5rem 1rem;
+		background: var(--red, #d32f2f);
+		color: white;
+		border: none;
+		border-radius: var(--radius);
+		cursor: pointer;
+		font-weight: 600;
+		transition: background 0.2s;
+
+		&:hover {
+			background: var(--dark-red, #b71c1c);
+		}
+	}
+}
+
 #cards {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

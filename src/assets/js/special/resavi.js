@@ -29,7 +29,9 @@ class ResAviManager {
 		try {
 			await this.loadTemplate();
 			await this.loadWikiData();
-			this.renderCards();
+			this.setupFilterOptions();
+			this.setupEventListeners();
+			this.applyFiltersAndSort();
 		} catch (error) {
 			console.error('Failed to initialize:', error);
 			this.showError('Failed to load avatar bases data');
@@ -208,6 +210,110 @@ class ResAviManager {
 
 	showError(message) {
 		this.container.innerHTML = `<div class="error">${message}</div>`;
+	}
+
+	setupFilterOptions() {
+		// Collect unique categories
+		const categories = new Set();
+		const licenses = new Set();
+
+		this.entries.forEach((entry) => {
+			if (entry.category) categories.add(entry.category);
+			if (entry.License && entry.License.content) {
+				licenses.add(entry.License.content);
+			}
+		});
+
+		// Populate category filter
+		const categorySelect = document.getElementById('categoryFilter');
+		if (categorySelect) {
+			[...categories].sort().forEach((cat) => {
+				const option = document.createElement('option');
+				option.value = cat;
+				option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1).replace(/-/g, ' ');
+				categorySelect.appendChild(option);
+			});
+		}
+
+		// Populate license filter
+		const licenseSelect = document.getElementById('licenseFilter');
+		if (licenseSelect) {
+			[...licenses].sort().forEach((license) => {
+				const option = document.createElement('option');
+				option.value = license;
+				option.textContent = license;
+				licenseSelect.appendChild(option);
+			});
+		}
+	}
+
+	setupEventListeners() {
+		// Search input
+		const searchInput = document.getElementById('searchInput');
+		if (searchInput) {
+			searchInput.addEventListener('input', (e) => this.applyFiltersAndSort());
+		}
+
+		// Category filter
+		const categoryFilter = document.getElementById('categoryFilter');
+		if (categoryFilter) {
+			categoryFilter.addEventListener('change', (e) => this.applyFiltersAndSort());
+		}
+
+		// License filter
+		const licenseFilter = document.getElementById('licenseFilter');
+		if (licenseFilter) {
+			licenseFilter.addEventListener('change', (e) => this.applyFiltersAndSort());
+		}
+
+		// Sort by
+		const sortBy = document.getElementById('sortBy');
+		if (sortBy) {
+			sortBy.addEventListener('change', (e) => this.applyFiltersAndSort());
+		}
+
+		// Sort order
+		const sortOrder = document.getElementById('sortOrder');
+		if (sortOrder) {
+			sortOrder.addEventListener('change', (e) => this.applyFiltersAndSort());
+		}
+
+		// Reset filters button
+		const resetBtn = document.getElementById('resetFilters');
+		if (resetBtn) {
+			resetBtn.addEventListener('click', () => this.resetAllFilters());
+		}
+	}
+
+	applyFiltersAndSort() {
+		const searchValue = document.getElementById('searchInput')?.value || '';
+		const categoryValue = document.getElementById('categoryFilter')?.value || '';
+		const licenseValue = document.getElementById('licenseFilter')?.value || '';
+		const sortByValue = document.getElementById('sortBy')?.value || 'category';
+		const sortOrderValue = document.getElementById('sortOrder')?.value || 'asc';
+
+		// Apply filters
+		const filters = {};
+		if (searchValue) filters.search = searchValue;
+		if (categoryValue) filters.category = categoryValue;
+		if (licenseValue) filters.license = licenseValue;
+
+		this.filterCards(filters);
+
+		// Apply sort
+		const ascending = sortOrderValue === 'asc';
+		this.sortCards(sortByValue, ascending);
+	}
+
+	resetAllFilters() {
+		document.getElementById('searchInput').value = '';
+		document.getElementById('categoryFilter').value = '';
+		document.getElementById('licenseFilter').value = '';
+		document.getElementById('sortBy').value = 'category';
+		document.getElementById('sortOrder').value = 'asc';
+
+		this.filteredEntries = [...this.entries];
+		this.renderCards();
 	}
 
 	// Future expansion methods
