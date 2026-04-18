@@ -1,0 +1,14 @@
+on:
+  schedule:
+    - cron: '0 * * * *' # Runs every hour
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - run: |
+          git remote add upstream https://git.avali.network/Mint_Shock/Mint_Shock-Digital_Garden-crafted
+          git fetch upstream
+          git push origin 'refs/remotes/upstream/*:refs/heads/*' --force
